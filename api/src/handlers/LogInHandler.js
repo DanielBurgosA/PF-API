@@ -4,7 +4,7 @@ const { User } = require("../db");
 async function LogIn(name, password) {
 
     
-    const user = await User.findOne({ where: { name: name } });
+    const user = await User.findOne({ where: { user_name: name } });
 
 
     if (!user) {

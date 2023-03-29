@@ -1,21 +1,16 @@
 const {Admin} = require('../db')
 const createAdmin = async (
-    email,
-    name,
-    lastname,
-    password,
-    description,
-    roleid
+    admin_email,
+    admin_name,
+    admin_lastname,
+    admin_password
 )=>{
     const newAdmin = await Admin.create({
-        email,
-        name,
-        lastname,
-        password,
-        description,
+        admin_email,
+        admin_name,
+        admin_lastname,
+        admin_password
     });
-
-    newAdmin.setRole(roleid);
 
     return newAdmin
 };

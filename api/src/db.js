@@ -36,34 +36,36 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Project, Role, User, Info, BankInfo, Donation, Admin} = sequelize.models;
+const { Project, User, Comunidad, BankInfo, Donation, Admin} = sequelize.models;
 
 // Aca vendrian las relaciones
 
-User.hasOne(Info)
-Info.belongsTo(User)
+User.hasOne(Comunidad,{foreignKey: { allowNull: false }})
+Comunidad.belongsTo(User)
 
-BankInfo.hasOne(Info)
-Info.belongsTo(BankInfo)
-
-Role.hasMany(User)
-User.belongsTo(Role)
-
-Role.hasMany(Admin)
-Admin.belongsTo(Role)
+Comunidad.hasOne(BankInfo,{foreignKey: { allowNull: false }})
+BankInfo.belongsTo(Comunidad)
 
 User.hasMany(Project)
-Project.belongsTo(User)
+Project.belongsTo(User,{foreignKey: { allowNull: false }})
 
-Admin.hasMany(Project)
-Project.belongsTo(Admin)
+// Admin.hasMany(Project)
+// Project.belongsTo(Admin,{foreignKey: { allowNull: false }})
 
-Project.belongsToMany(User, { through: Donation })
-User.belongsToMany(Project, {through: Donation })
+User.hasMany(Donation)
+Donation.belongsTo(User,{foreignKey: { allowNull: false }})
+
+Project.hasMany(Donation)
+Donation.belongsTo(Project,{foreignKey: { allowNull: false }})
+
+
+/* 
+User.belongsToMany(Project, {through: Donation})
+Project.belongsToMany(User, { through: Donation})
 
 
 
-
+ */
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');

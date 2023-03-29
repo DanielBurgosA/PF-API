@@ -5,13 +5,17 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("bankInfo", {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement:true
+    },
+    bankname: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     account: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   },{ timestamps: false });
 };

@@ -1,27 +1,23 @@
 const { Donation, User, Project } = require('../db')
-const { where } = require('sequelize')
 
 const createDonation = async (
     monto,
     userid,
-    projectid,
+    projectid
     
 )=>{
     try {
-        let usuariodonador = await User.findOne({
-            where:{
-                id: userid
-            }
+        let num_donationxuser = (await Donation.count({where:{userId:userid, projectId:projectid}})) +1
+        const newDonation = await Donation.create({
+            monto,
+            num_donationxuser
         });
 
-        let projectdonado = await Project.findOne({
-            where:{
-                id:projectid
-            }
-        })
+        newDonation.setUser(userid)
+        newDonation.setProject(projectid)
 
-        
-        return projectdonado.addUser(usuariodonador, {through: { monto: monto}});
+        return newDonation;
+
     } catch (error) {
         return {error: error.message}
     }

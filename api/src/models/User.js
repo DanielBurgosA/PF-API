@@ -13,25 +13,31 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        email: {
+        user_email: {
             type: DataTypes.STRING,
-            unique: true
+            unique: true,
+            allowNull: false,
         },
-        name:{
+        user_name:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
         },
-        lastname:{
+        user_lastname:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
         },
         hash:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
         },
         salt:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+        },
+        admin:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
         }
     }, {timestamps: false})
 }

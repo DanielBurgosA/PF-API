@@ -1,7 +1,7 @@
 const { getProjectById } = require("../handlers/GetProjectById")
 
 const projectsIdController = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.querparams;
     try {
         const projectById = await getProjectById(id);
         res.status(200).json(projectById);

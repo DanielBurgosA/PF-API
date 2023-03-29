@@ -9,20 +9,21 @@ module.exports = (sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        email: {
+        admin_email: {
             type: DataTypes.STRING,
-            unique: true
+            unique: true,
+            allowNull: false
 
         },
-        name:{
+        admin_name:{
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastname:{
+        admin_lastname:{
             type: DataTypes.STRING,
             allowNull: false
         },
-        password:{
+        admin_password:{
             type: DataTypes.STRING,
             allowNull: false
         }
