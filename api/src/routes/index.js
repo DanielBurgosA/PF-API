@@ -18,7 +18,8 @@ const { allDonationsController } = require('../controllers/AllDonationsControlle
 const { allUsersController } = require('../controllers/AllUsersController');
 const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
 const { logInController } = require('../controllers/LogInController')
-const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
+const { GoogleCallBackController } = require('../controllers/GoogleCallBackController');
+const { putBankInfoController } = require('../controllers/PutBankInfoController');
     
 //----------------------------------------------------
 router.post('/users', createUserController)
@@ -42,6 +43,19 @@ router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'http:
 router.post('/create-payment', createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
+//------------------------------------------------------------------------
+//NUEVAS RUTAS PUT
+router.put('/bankInfos', putBankInfoController)
+/* router.put()
+router.put()
+router.put()
+router.put()
+router.put()
+router.put() */
+
+
+
+
 //------------------------------------------------------------------------
 router.post('/login', logInController);
 router.get('/login', (req, res) => {
