@@ -16,6 +16,7 @@ const allProjectsController = async (req, res) => {
   try {
     const allProjects = await getAllProjects(id,name,location,status,completed,deleted,userId,adminId);
     const paginatedProjects = paginateditems(page, limit, allProjects);
+    console.log(req.cookies.value)
     res.status(200).json(paginatedProjects);
   } catch (error) {
     res.status(400).json({ error: error.message });

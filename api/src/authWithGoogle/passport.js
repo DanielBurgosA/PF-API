@@ -14,28 +14,31 @@ module.exports = (passport) => {
     },
         async function (accessToken, refreshToken, profile, cb) {
 
-            cb(null, profile);
-            console.log(profile);
+            
 
             try {
-                let user = await User.findOne({ where: { googleId: profile.id } })
-
-                if (!user) {
-
-                    user = {
-                        id: profile.id,
-                        name: profile.name.givenName,
-                        lastName: profile.name.familyName,
+                const [user, created] = await User.findOrCreate({
+                    where: { user_email: profile.emails[0].value },
+                    defaults: {
+                        googleId: profile.id,
+                        user_name: profile.name.givenName,
+                        user_lastname: profile.name.familyName,
+                        user_email: profile.emails[0].value 
                     }
-                    const newUser = await User.create(user)
-
-                    cb(null, profile);
-                } else {
-                    cb(null, false);
-                }
+                  });
+                  cb(null, user)
             } catch (err) {
                 cb(err, null)
             }
         }
     ));
+
+    passport.serializeUser((user,done)=>{
+        done(null, user)
+    })
+
+    passport.deserializeUser((user,done)=>{
+        done(null, user)
+    })
+    
 }

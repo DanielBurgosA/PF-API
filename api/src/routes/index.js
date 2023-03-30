@@ -1,5 +1,8 @@
 const { Router } = require('express');
-const passport = require('passport');
+const passport = require("passport");
+const querystring = require("querystring");
+
+require("dotenv").config();
 
 
 const router = Router();
@@ -38,40 +41,88 @@ router.post('/bankInfos', createBankInfoController)
 router.get('/donations', allDonationsController)
 router.get('/projects', allProjectsController)
 //----------------------------------------------------
-router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'http://localhost:3000/login', session: false }), createDonationController)
+router.post('/donations', createDonationController)
 router.post('/create-payment', createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
 //------------------------------------------------------------------------
-router.post('/login', logInController);
-router.get('/login', (req, res) => {
-  res.cookie("value", req.app.locals.token, { httpOnly: false, maxAge: 1000 * 60 * 10, });
-  res.cookie("success", "true", { httpOnly: false, maxAge: 1000 * 60 * 10, });
-  res.redirect("http://localhost:3000/home");
+// auth with auth0
+router.get('/login', passport.authenticate("auth0", {
+    scope: "openid email profile"
+  }),
+  (req, res) => {
+    res.send("hola");
+  }
+);
 
-})//con esta ruta logro que las cookies lleguen al puerto 3000 luego de la verificacion con la ruta post
+router.get("/callback", (req, res, next) => {
+  passport.authenticate("auth0", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect("http://localhost:3000/home");
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      const returnTo = req.session.returnTo;
+      delete req.session.returnTo;
+      res.redirect(returnTo || "http://localhost:3000/home");
+    });
+  })(req, res, next);
+});
+
+
+router.get("/logout", (req, res) => {
+  req.logOut();
+
+  let returnTo = req.protocol + "://" + req.hostname;
+  const port = req.connection.localPort;
+
+  if (port !== undefined && port !== 80 && port !== 443) {
+    returnTo =
+      process.env.NODE_ENV === "production"
+        ? `${returnTo}/`
+        : `${returnTo}:${port}/`;
+  }
+
+  const logoutURL = new URL(
+    `https://${process.env.AUTH0_DOMAIN}/v2/logout`
+  );
+
+  const searchString = querystring.stringify({
+    client_id: process.env.AUTH0_CLIENT_ID,
+    returnTo: returnTo
+  });
+  logoutURL.search = searchString;
+
+  res.redirect(logoutURL);
+});
+
 
 //--------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 
-router.get("/logout", (req, res) =>{
-  res.clearCookie("value");
-  res.clearCookie("success");
-  res.redirect("http://localhost:3000/login");
-})//ruta para limpiar las cookies
+// router.get("/logout", (req, res) =>{
+//   res.clearCookie("value");
+//   res.clearCookie("success");
+//   res.redirect("http://localhost:3000/login");
+// })//ruta para limpiar las cookies
 //------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------------------------------------
 //google auth
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'], session: false }));
+// router.get('/auth/google',
+//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }));
 
-router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/home', session: false }),
-  GoogleCallBackController
-);
+// router.get('/auth/google/callback',
+//   passport.authenticate('google', { failureRedirect: 'http://localhost:3000/home'}),
+//   GoogleCallBackController
+// );
 
 //--------------------------------------------------------------------------------------------------------------
 

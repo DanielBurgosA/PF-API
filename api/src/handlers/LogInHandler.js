@@ -1,10 +1,10 @@
 const { validPassword, issueJWT } = require("../authWithJWT/utils")
 const { User } = require("../db");
 
-async function LogIn(name, password) {
+async function LogIn(user_email, password) {
 
     
-    const user = await User.findOne({ where: { user_name: name } });
+    const user = await User.findOne({ where: { user_email: user_email } });
 
 
     if (!user) {
