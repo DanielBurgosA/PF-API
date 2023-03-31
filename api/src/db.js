@@ -59,13 +59,7 @@ Project.hasMany(Donation)
 Donation.belongsTo(Project,{foreignKey: { allowNull: false }})
 
 
-/* 
-User.belongsToMany(Project, {through: Donation})
-Project.belongsToMany(User, { through: Donation})
 
-
-
- */
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');

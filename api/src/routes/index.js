@@ -20,6 +20,9 @@ const { createPayment, executePayment, cancelPayment } = require('../controllers
 const { logInController } = require('../controllers/LogInController')
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController');
 const { putBankInfoController } = require('../controllers/PutBankInfoController');
+const { putComunidadController } = require('../controllers/PutComunidadController');
+const { putProjectController } = require('../controllers/PutProjectController');
+const { putUserController } = require('../controllers/PutUserController');
     
 //----------------------------------------------------
 router.post('/users', createUserController)
@@ -46,12 +49,12 @@ router.get('/cancel-payment', cancelPayment)
 //------------------------------------------------------------------------
 //NUEVAS RUTAS PUT
 router.put('/bankInfos', putBankInfoController)
-/* router.put()
-router.put()
-router.put()
-router.put()
-router.put()
-router.put() */
+router.put('/comunidads', putComunidadController)
+router.put('/projects', putProjectController)
+router.put('/users', putUserController)
+
+//NUEVAS RUTAS DELETE
+
 
 
 

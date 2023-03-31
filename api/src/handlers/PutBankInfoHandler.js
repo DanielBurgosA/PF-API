@@ -13,9 +13,9 @@ const updateBankInfo = async(
         if(account){infotoupdate.account = account}
 
         bankinfotoUpdate.update(infotoupdate);
-        bankinfotoUpdate.save();
+        bankinfotoUpdate.save()
 
-        return bankinfotoUpdate;
+        return bankinfotoUpdate
 }
 
 module.exports = {updateBankInfo}
