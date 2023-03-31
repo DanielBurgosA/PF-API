@@ -1,7 +1,7 @@
 
 const { issueJWT } = require("../authWithJWT/utils")
 
-const GoogleCallBackController = (req, res, next) => {
+const GoogleCallBackController = (req, res) => {
     // Successful authentication, redirect home.
     const token = issueJWT(req.user);
   

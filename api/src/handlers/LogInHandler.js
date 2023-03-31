@@ -6,7 +6,6 @@ async function LogIn(user_email, user_password) {
     
     const user = await User.findOne({ where: { user_email: user_email } });
 
-
     if (!user) {
         return {success: false, msg: "user not found"};
     }
@@ -14,15 +13,12 @@ async function LogIn(user_email, user_password) {
     const isValid = validPassword(user_password, user.hash, user.salt);
 
     if (isValid) {
-
         const tokenObject = issueJWT(user);
 
         return {token:tokenObject.token, success:true, msg:"you are in", origin:"local", rol:user.admin}
 
     } else {
-
         return { success: false, msg:"you entered the wrong password"};
-
     }
 }
 
