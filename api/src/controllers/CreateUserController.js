@@ -10,7 +10,6 @@ const createUserController = async (req, res) => {
         user_lastname,
         user_password
       );
-      console.log("hola");
       res.status(200).json(postUser);
     } catch (error) {
       res.status(400).json({ error: error.message });
