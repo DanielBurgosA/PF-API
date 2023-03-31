@@ -3,7 +3,7 @@ const passport = require('passport');
 
 
 const router = Router();
-const {allProjectsController} = require("../controllers/AllProjectsController");
+const {allProjectsController, userProjectsController} = require("../controllers/AllProjectsController");
 const {createProjectController} = require("../controllers/CreateProjectController");
 const {deleteProjectController} = require("../controllers/DeleteProjectController");
 const {createUserController} = require("../controllers/CreateUserController");
@@ -45,6 +45,8 @@ router.post('/bankInfos', createBankInfoController)
 //----------------------------------------------------
 router.get('/donations', allDonationsController)
 router.get('/projects', allProjectsController)
+//----------------------------------------------------
+router.get('/userprojects', userProjectsController)
 //----------------------------------------------------
 router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }), createDonationController)
 router.post('/create-payment', createPayment)
