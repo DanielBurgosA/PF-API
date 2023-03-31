@@ -26,6 +26,7 @@ const { putUserController } = require('../controllers/PutUserController');
 const { deleteUserController } = require('../controllers/DeleteUserController');
 const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
 const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
+const { sendEmailController } = require('../controllers/SendEmailController');
     
 //----------------------------------------------------
 router.post('/users', createUserController)
@@ -62,7 +63,8 @@ router.put('/bankInfos/delete', deletebankInfoController)
 router.put('/comunidads/delete',deleteComunidadController)
 router.put('/projects/delete', deleteProjectController)
 
-
+//NUEVAS RUTAS PARA NODEMAILER (ENVIO DE NOTIFICACION POR EMAIL)
+router.post('/send-email', sendEmailController)
 
 
 //------------------------------------------------------------------------
