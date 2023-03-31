@@ -63,9 +63,6 @@ router.put('/bankInfos/delete', deletebankInfoController)
 router.put('/comunidads/delete',deleteComunidadController)
 router.put('/projects/delete', deleteProjectController)
 
-//NUEVAS RUTAS PARA NODEMAILER (ENVIO DE NOTIFICACION POR EMAIL)
-router.post('/send-email', sendEmailController)
-
 
 //------------------------------------------------------------------------
 router.post('/login', logInController);
