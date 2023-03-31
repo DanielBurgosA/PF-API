@@ -5,9 +5,9 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const cors = require('cors');
 const passport = require("passport");
+const { createAdm } = require("./admin");
 
 require('./db.js');
-
 
 
 const server = express();
@@ -35,6 +35,9 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
+// async () =>{
+//   await createAdm();
+// } 
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

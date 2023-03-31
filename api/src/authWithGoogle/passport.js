@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { defaults } = require('request');
 const { User } = require("../db");
 const { ID_CLIENT_GOOGLE, KEY_SECRET_GOOGLE } = process.env;
 const { where } = require("sequelize");
@@ -14,25 +15,17 @@ module.exports = (passport) => {
     },
         async function (accessToken, refreshToken, profile, cb) {
 
-            cb(null, profile);
-            console.log(profile);
-
             try {
-                let user = await User.findOne({ where: { googleId: profile.id } })
-
-                if (!user) {
-
-                    user = {
+                const [user, created] = await User.findOrCreate({
+                    where: { googleId: profile.id },
+                    defaults: {
                         id: profile.id,
-                        name: profile.name.givenName,
-                        lastName: profile.name.familyName,
+                        user_name: profile.name.givenName,
+                        user_lastname: profile.name.familyName,
+                        user_email: profile.emails[0].value   
                     }
-                    const newUser = await User.create(user)
-
-                    cb(null, profile);
-                } else {
-                    cb(null, false);
-                }
+                })
+                cb(null, user)
             } catch (err) {
                 cb(err, null)
             }

@@ -2,31 +2,24 @@ const { createProject } = require("../handlers/CreateProjectHandler");
 
 const createProjectController = async (req, res) => {
     const {
-            userid,
-            adminid,
             name,
             description,
             image,
             location,
             cost,
-            currentAmount,
-            status,
-            completed,
-            deleted
-                  } = req.body
+                  } = req.body;
+    
+    const userid = req.user.id;
+    console.log(userid);
+
     try {
         const postProject = await createProject(
-            userid,
-            adminid,
             name,
             description,
             image,
             location,
             cost,
-            currentAmount,
-            status,
-            completed,
-            deleted)
+            userid)
         res.status(200).json(postProject)
     } catch (error) {
         res.status(400).json({ error: error.message })
