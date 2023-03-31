@@ -17,7 +17,7 @@ async function LogIn(user_email, user_password) {
 
         const tokenObject = issueJWT(user);
 
-        return {token:tokenObject.token, success:true, msg:"you are in", origin:"local"}
+        return {token:tokenObject.token, success:true, msg:"you are in", origin:"local", rol:user.admin}
 
     } else {
 

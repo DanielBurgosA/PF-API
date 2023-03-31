@@ -1,4 +1,4 @@
-const { User } = require("../db");
+const {ForgotPasswordHandler} = require("../handlers/ForgotPasswordHandler")
 
 const ForgotPasswordController = async (req, res) =>{
     

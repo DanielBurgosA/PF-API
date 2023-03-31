@@ -1,7 +1,7 @@
 const { User } = require("../db");
 const { genPassword } = require("../authWithJWT/utils");
 
-const ResetPasswordHandler = async (user_password, user) => {
+const ResetPasswordHandler = async (user_password, user_email) => {
 
     const hashSalt = genPassword(user_password);
 
@@ -10,7 +10,7 @@ const ResetPasswordHandler = async (user_password, user) => {
 
     await User.update({ hash: hash, salt: salt }, {
         where: {
-            id: user.id
+            user_email,
         }
     });
 
