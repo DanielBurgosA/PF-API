@@ -1,12 +1,11 @@
 const nodemailer  = require('nodemailer')
 const nodemailerSendgrid = require('nodemailer-sendgrid')
 
-const sendEmailController = async (req,res)=>{
+ const sendEmailController = async (req,res)=>{
     const transport = nodemailer.createTransport(
         nodemailerSendgrid({
-            apiKey: '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'
         })
-    )
+    ) 
 
     const mailOptions = {
         from: "hsssvf@gmail.com",
