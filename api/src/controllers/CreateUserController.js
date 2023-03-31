@@ -1,4 +1,5 @@
 const { createUser } = require("../handlers/CreateUserHandler");
+const {enviarCorreo} = require("./NotificationController")
 
 const createUserController = async (req, res) => {
     const { user_email, user_name, user_lastname, user_password } =
@@ -10,7 +11,9 @@ const createUserController = async (req, res) => {
         user_lastname,
         user_password
       );
-      console.log("hola");
+      const mensaje = `Hola ${user_name}, gracias por unirte a nuestra comunidad`
+
+      enviarCorreo(user_email, "¡bienvenido!", mensaje, "createUser")
       res.status(200).json(postUser);
     } catch (error) {
       res.status(400).json({ error: error.message });
