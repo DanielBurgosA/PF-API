@@ -31,7 +31,7 @@ const userProjectsController = async (req, res) => {
         limit } = req.query
 
   const status ="approved"
-  const deleted = false;
+  const deleted = "false";
   const page = parseInt(req.query.page)
   try {
     const allProjects = await getAllProjects(id,name,location,status,completed,deleted,userId);
