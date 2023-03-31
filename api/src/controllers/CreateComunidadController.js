@@ -6,7 +6,7 @@ const createComunidadController = async (req,res)=>{
         comunidad_name,
         comunidad_description,
         comunidad_location,
-        userid
+        userId
     } = req.body
 
     try {
@@ -14,7 +14,7 @@ const createComunidadController = async (req,res)=>{
             comunidad_name,
             comunidad_description,
             comunidad_location,
-            userid
+            userId
         )
         res.status(200).json(postComunidad)
     } catch (error) {

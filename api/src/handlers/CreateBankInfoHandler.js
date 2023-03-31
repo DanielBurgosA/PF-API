@@ -3,21 +3,22 @@ const { BankInfo, Comunidad } = require('../db')
 const createBankInfo = async (
     bankname,
     account,
-    comunidad_id
+    comunidadId
 )=>{
     try {
         const newBankInfo = await BankInfo.create({
             bankname,
-            account
+            account,
+            comunidadId
         })
     
-        let comunidad = await Comunidad.findOne({
+        /* let comunidad = await Comunidad.findOne({
             where:{
                 id: comunidad_id
             }
         })
     
-        newBankInfo.setComunidad(comunidad)
+        newBankInfo.setComunidad(comunidad) */
         return newBankInfo
     } catch (error) {
         return {error: error.message}

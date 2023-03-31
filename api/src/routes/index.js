@@ -18,6 +18,13 @@ const { allDonationsController } = require('../controllers/AllDonationsControlle
 const { allUsersController } = require('../controllers/AllUsersController');
 const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
 const { logInController } = require('../controllers/LogInController')
+const { putBankInfoController } = require('../controllers/PutBankInfoController');
+const { putComunidadController } = require('../controllers/PutComunidadController');
+const { putProjectController } = require('../controllers/PutProjectController');
+const { putUserController } = require('../controllers/PutUserController');
+const { deleteUserController } = require('../controllers/DeleteUserController');
+const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
+const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
 const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
 const { ResetPasswordController } = require("../controllers/ResetPasswordController")
@@ -43,6 +50,20 @@ router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'http:
 router.post('/create-payment', createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
+//------------------------------------------------------------------------
+//NUEVAS RUTAS PUT
+router.put('/bankInfos', putBankInfoController)
+router.put('/comunidads', putComunidadController)
+router.put('/projects', putProjectController)
+router.put('/users', putUserController)
+
+//NUEVAS RUTAS DELETE
+router.put('/users/delete', deleteUserController)
+router.put('/bankInfos/delete', deletebankInfoController)
+router.put('/comunidads/delete',deleteComunidadController)
+router.put('/projects/delete', deleteProjectController)
+
+
 //------------------------------------------------------------------------
 router.post('/login', logInController);
 
