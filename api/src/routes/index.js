@@ -23,6 +23,9 @@ const { putBankInfoController } = require('../controllers/PutBankInfoController'
 const { putComunidadController } = require('../controllers/PutComunidadController');
 const { putProjectController } = require('../controllers/PutProjectController');
 const { putUserController } = require('../controllers/PutUserController');
+const { deleteUserController } = require('../controllers/DeleteUserController');
+const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
+const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
     
 //----------------------------------------------------
 router.post('/users', createUserController)
@@ -54,7 +57,10 @@ router.put('/projects', putProjectController)
 router.put('/users', putUserController)
 
 //NUEVAS RUTAS DELETE
-
+router.put('/users/delete', deleteUserController)
+router.put('/bankInfos/delete', deletebankInfoController)
+router.put('/comunidads/delete',deleteComunidadController)
+router.put('/projects/delete', deleteProjectController)
 
 
 
