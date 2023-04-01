@@ -28,6 +28,9 @@ const { deleteComunidadController } = require('../controllers/DeleteComunidadCon
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
 const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
 const { ResetPasswordController } = require("../controllers/ResetPasswordController")
+const { commentsController } = require('../controllers/commentsController')
+const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
+const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
 //----------------------------------------------------
 router.post('/users', createUserController)
 router.get('/users', allUsersController)
@@ -36,7 +39,7 @@ router.get('/bankInfos', allBankInfoController)
 router.get('/comunidads', allComunidadesController)
 //----------------------------------------------------
 router.put('/deletprojects', deleteProjectController)
-router.post('/projects', passport.authenticate('jwt', { session: false }), createProjectController)
+router.post('/projects', /* passport.authenticate('jwt', { session: false }), */ createProjectController)
 //----------------------------------------------------
 router.post('/admins', createAdminController)
 router.post('/donations', createDonationController) 
@@ -61,9 +64,14 @@ router.put('/users', putUserController)
 
 //NUEVAS RUTAS DELETE
 router.put('/users/delete', deleteUserController)
-router.put('/bankInfos/delete', deletebankInfoController)
+router.put('/bankInfos/delete', deletebankInfoController) 
 router.put('/comunidads/delete',deleteComunidadController)
 router.put('/projects/delete', deleteProjectController)
+
+//NUEVAS RUTAS COMENTARIOS
+router.post('/comment', commentsController);
+router.get('/comments/project', getCommentsByProjectIdController);
+router.get('/comments/user', getCommentsByUserIdController);
 
 
 //------------------------------------------------------------------------

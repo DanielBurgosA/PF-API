@@ -7,9 +7,10 @@ const createProjectController = async (req, res) => {
             image,
             location,
             cost,
+            userid
                   } = req.body;
     
-    const userid = req.user.id;
+    /* const  = req.user.id; */
     console.log(userid);
 
     try {
