@@ -3,17 +3,17 @@ const { LogIn } = require("../handlers/LogInHandler");
 
 
 const logInController = async (req, res) => {
-    const { name, password } = req.body;
-    console.log(req.body);
-    console.log(password);
+    const { user_email, user_password } = req.body;
 
     try {
-        const state = await LogIn(name, password);
-        // req.app.locals.token = state.token // con req.app.locals almaceno info para poder usarla en otro middleware
-        // res.cookie("value", state.token, { httpOnly: false, maxAge: 1000 * 60 * 30, });
-        res.cookie("success", "true", { httpOnly: false, maxAge: 1000 * 60 * 30, sameSite: "none", secure: false});
-        console.log(res.cookie);
-        res.status(200).json(state.token);
+        const state = await LogIn(user_email, user_password);
+
+        if (state.success === true){
+            res.status(200).json(state);
+        }else{
+            res.status(200).json(state)
+        }
+        
     } catch (error) {
         console.log(error)
         res.status(400).json(error.message);

@@ -9,6 +9,8 @@ const auth = { user: CLIENT, pass: SECRET }
 
 const createPayment = async (req, res) => {
     const {token} = req.query
+    const { userName, project, amount} = req.body
+
     if (token !== undefined){
         res.status(201).json("Salio bien o mal")
     }
@@ -17,7 +19,7 @@ const createPayment = async (req, res) => {
         purchase_units: [{
             amount: {
                 currency_code: 'USD', //https://developer.paypal.com/docs/api/reference/currency-codes/
-                value: '5'
+                value: amount
             }
         }],
         application_context: {

@@ -10,18 +10,10 @@ module.exports = (sequelize) => {
               primaryKey: true,
               autoIncrement:true
             },
-            monto: {
+            amount: {
               type: DataTypes.INTEGER,
               allowNull: false,
             },
-            monto_currency: {
-              type: DataTypes.STRING,
-              defaultValue: "Dólares"
-            },
-            num_donationxuser:{
-              type: DataTypes.INTEGER,
-              allowNull:false
-            }
           },
           { timestamps: false }
     )

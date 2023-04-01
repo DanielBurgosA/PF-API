@@ -3,7 +3,7 @@ const passport = require('passport');
 
 
 const router = Router();
-const {allProjectsController} = require("../controllers/AllProjectsController");
+const {allProjectsController, userProjectsController} = require("../controllers/AllProjectsController");
 const {createProjectController} = require("../controllers/CreateProjectController");
 const {deleteProjectController} = require("../controllers/DeleteProjectController");
 const {createUserController} = require("../controllers/CreateUserController");
@@ -18,8 +18,16 @@ const { allDonationsController } = require('../controllers/AllDonationsControlle
 const { allUsersController } = require('../controllers/AllUsersController');
 const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
 const { logInController } = require('../controllers/LogInController')
+const { putBankInfoController } = require('../controllers/PutBankInfoController');
+const { putComunidadController } = require('../controllers/PutComunidadController');
+const { putProjectController } = require('../controllers/PutProjectController');
+const { putUserController } = require('../controllers/PutUserController');
+const { deleteUserController } = require('../controllers/DeleteUserController');
+const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
+const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
-    
+const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
+const { ResetPasswordController } = require("../controllers/ResetPasswordController")
 //----------------------------------------------------
 router.post('/users', createUserController)
 router.get('/users', allUsersController)
@@ -38,35 +46,28 @@ router.post('/bankInfos', createBankInfoController)
 router.get('/donations', allDonationsController)
 router.get('/projects', allProjectsController)
 //----------------------------------------------------
+router.get('/userprojects', userProjectsController)
+//----------------------------------------------------
 router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }), createDonationController)
 router.post('/create-payment', createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
 //------------------------------------------------------------------------
+//NUEVAS RUTAS PUT
+router.put('/bankInfos', putBankInfoController)
+router.put('/comunidads', putComunidadController)
+router.put('/projects', putProjectController)
+router.put('/users', putUserController)
+
+//NUEVAS RUTAS DELETE
+router.put('/users/delete', deleteUserController)
+router.put('/bankInfos/delete', deletebankInfoController)
+router.put('/comunidads/delete',deleteComunidadController)
+router.put('/projects/delete', deleteProjectController)
+
+
+//------------------------------------------------------------------------
 router.post('/login', logInController);
-// router.get('/login', (req, res) => {
-// try {
-//   res.cookie("value", req.app.locals.token, { httpOnly: false, maxAge: 1000 * 60 * 10, });
-//   res.cookie("success", "true", { httpOnly: false, maxAge: 1000 * 60 * 30, });
-//   console.log(res.cookie);
-//   res.redirect("https://client-pf-seven.vercel.app/home");  
-// } catch (error) {
-//   res.status(400).error(error.message )
-// }
-  
-// })//con esta ruta logro que las cookies lleguen al puerto 3000 luego de la verificacion con la ruta post
-
-//--------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-
-router.get("/logout", (req, res) =>{
-  res.clearCookie("value");
-  res.clearCookie("success");
-  res.redirect("https://client-pf-seven.vercel.app/login");
-})//ruta para limpiar las cookies
-//------------------------------------------------------------------------------
-
 
 //--------------------------------------------------------------------------------------------------------------
 //google auth
@@ -78,7 +79,23 @@ router.get('/auth/google/callback',
   GoogleCallBackController
 );
 
+router.get('/google/token', (req, res)=>{
+  if (req.app.locals.GoogleToken){
+    res.status(200).json({token:req.app.locals.GoogleToken, origin: "google"})
+  }else{
+    res.status(200).json({msg:"not logged with google"})
+  }
+})
+
+router.get('/logOut/google', (req, res) => {
+  req.app.locals.GoogleToken = null
+  res.status(200).json({msg: "you are out"})
+})
 //--------------------------------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------------------------
+//passwordrecovery
+router.post("/forgotPassword", ForgotPasswordController)
+router.put("/reset", ResetPasswordController)
 
 module.exports = router;

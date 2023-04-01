@@ -1,22 +1,22 @@
 const { validPassword, issueJWT } = require("../authWithJWT/utils")
 const { User } = require("../db");
 
-async function LogIn(name, password) {
+async function LogIn(user_email, user_password) {
 
-    console.log(password);
-    const user = await User.findOne({ where: { user_name: name } });
+    
+    const user = await User.findOne({ where: { user_email: user_email } });
 
     if (!user) {
         return {success: false, msg: "user not found"};
     }
 
-    console.log(user);
-    console.log(user.salt);
+    const isValid = validPassword(user_password, user.hash, user.salt);
 
-    const isValid = validPassword(password, user.hash, user.salt);
     if (isValid) {
         const tokenObject = issueJWT(user);
-        return {token:tokenObject.token, success:true, msg:"you are in"}
+
+        return {token:tokenObject.token, success:true, msg:"you are in", origin:"local", rol:user.admin}
+
     } else {
         return { success: false, msg:"you entered the wrong password"};
     }

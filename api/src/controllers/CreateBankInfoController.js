@@ -5,14 +5,14 @@ const createBankInfoController = async(req,res)=>{
     const {
         bankname,
         account,
-        comunidad_id
+        comunidadId
     } = req.body
 
     try {
         const postBankInfo = await createBankInfo(
             bankname,
             account,
-            comunidad_id
+            comunidadId
         )
 
         res.status(200).json(postBankInfo)
