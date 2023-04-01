@@ -4,15 +4,14 @@ const createComunidad = async (
     comunidad_name,
     comunidad_description,
     comunidad_location,
-    userid
+    userId
 )=>{
     const newComunidad = await Comunidad.create({
         comunidad_name,
         comunidad_description,
         comunidad_location,
+        userId
     })
-
-    newComunidad.setUser(userid)
 
     return newComunidad
 }

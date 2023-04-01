@@ -19,9 +19,6 @@ const options = {
 module.exports = (passport) => {
     // The JWT payload is passed into the verify callback
     passport.use(new JwtStrategy(options, async function (jwt_payload, done) {
-
-        console.log(jwt_payload);
-
         // We will assign the `sub` property on the JWT to the database ID of user
         try {
             const user = await User.findOne({ where: { id: jwt_payload.sub } }) // seq method - change that 

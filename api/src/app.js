@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const cors = require('cors');
 const passport = require("passport");
-const { createAdm } = require("./admin");
+
 
 require('./db.js');
 
@@ -18,7 +18,9 @@ require('./authWithGoogle/passport')(passport);
 
 server.use(passport.initialize());
 
-server.use(cors())
+server.use(cors({
+  origin: 'https://client-pf-seven.vercel.app',
+  credentials: true}))
 
 server.name = 'API';
 
