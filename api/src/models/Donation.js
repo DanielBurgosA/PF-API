@@ -14,15 +14,10 @@ module.exports = (sequelize) => {
               type: DataTypes.INTEGER,
               allowNull: false,
             },
-            monto_currency: {
-              type: DataTypes.STRING,
-              defaultValue: "Dólares"
-            },
             num_donationxuser:{
               type: DataTypes.INTEGER,
               allowNull:false
             }
           },
-          { timestamps: false }
     )
 }

@@ -1,23 +1,29 @@
+const { createDonation } = require("../handlers/CreateDonationHandler")
 const request = require('request');
 
 const { CLIENT,SECRET } = process.env;
-
 
 const PAYPAL_API = 'https://api-m.sandbox.paypal.com'; // Live https://api-m.paypal.com
 
 const auth = { user: CLIENT, pass: SECRET }
 
+
 const createPayment = async (req, res) => {
     const {token} = req.query
+    const {monto, userid, projectid} = req.body
+
     if (token !== undefined){
         res.status(201).json("Salio bien o mal")
     }
+
+    await createDonation(monto, userid, projectid)
+
     const body = {
         intent: 'CAPTURE',
         purchase_units: [{
             amount: {
                 currency_code: 'USD', //https://developer.paypal.com/docs/api/reference/currency-codes/
-                value: '5'
+                value: amount
             }
         }],
         application_context: {
@@ -37,8 +43,6 @@ const createPayment = async (req, res) => {
     }, (err, response) => {
         res.json({ data: response.body })
     })
-
-  
 }
 
 const executePayment = async (req, res) => {
