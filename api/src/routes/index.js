@@ -35,7 +35,7 @@ router.get('/admins', allAdminsController)
 router.get('/bankInfos', allBankInfoController)
 router.get('/comunidads', allComunidadesController)
 //----------------------------------------------------
-router.put('/projects', deleteProjectController)
+router.put('/deletprojects', deleteProjectController)
 router.post('/projects', passport.authenticate('jwt', { session: false }), createProjectController)
 //----------------------------------------------------
 router.post('/admins', createAdminController)
