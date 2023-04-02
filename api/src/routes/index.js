@@ -26,9 +26,11 @@ const { deleteUserController } = require('../controllers/DeleteUserController');
 const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
 const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
-const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
+const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")
 const { ResetPasswordController } = require("../controllers/ResetPasswordController")
 const { commentsController } = require('../controllers/commentsController');
+const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
+const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
 
 //--------------------GENERAL--------------------------------
 router.get('/userprojects', userProjectsController)
@@ -55,6 +57,8 @@ router.put('/projects', putProjectController)
 router.put('/users', putUserController)
 //--------------------COMMENT--------------------------------
 router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
+router.get('/comments/project', getCommentsByProjectIdController);
+router.get('/comments/user', getCommentsByUserIdController);
 
 
 //NUEVAS RUTAS PUT
@@ -67,7 +71,7 @@ router.post('/comment', passport.authenticate('jwt', { session: false }), commen
 // router.get('/admins', allAdminsController)
 // router.post('/admins', createAdminController)
 // router.get('/bankInfos', allBankInfoController)
-// router.post('/bankInfos', createBankInfoController)   
+// router.post('/bankInfos', createBankInfoController)
 // router.get('/comunidads', allComunidadesController)
 // router.post('/comunidads', createComunidadController)
 
