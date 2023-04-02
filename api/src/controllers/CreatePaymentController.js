@@ -63,10 +63,6 @@ const executePayment = async (req, res) => {
         else{
             const { status} = response.body;
             if (status === 'COMPLETED') {
-                console.log(response.body);
-                console.log(amount);
-                console.log(userId);
-                console.log(projectId);
 
                 createDonation(amount,userId,projectId);
 
