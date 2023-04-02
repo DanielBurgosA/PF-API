@@ -2,7 +2,8 @@
 const { commentsHandler } = require('../handlers/commentsHandler')
 
 const commentsController = async (req, res) => {
-  const { comment, userId, projectId } = req.body
+  const { comment, projectId } = req.body
+  const userId = req.user.id;
   try {
     const comments = await commentsHandler(comment, userId, projectId);
     res.status(201).json(comments)
