@@ -14,6 +14,10 @@ const createPayment = async (req, res) => {
     let userId = req.user.id;
     console.log(userId);
 
+    const {amount, projectId} = req.body;
+    console.log(amount);
+    console.log(projectId);
+
     const {token} = req.query
     if (token !== undefined){
         res.status(201).json("Salio bien o mal")
