@@ -2,10 +2,10 @@ const { Router } = require("express");
 const passport = require("passport");
 
 const router = Router();
-const {allProjectsController, userProjectsController} = require("../controllers/AllProjectsController");
-const {createProjectController} = require("../controllers/CreateProjectController");
-const {deleteProjectController} = require("../controllers/DeleteProjectController");
-const {createUserController} = require("../controllers/CreateUserController");
+const { allProjectsController, userProjectsController } = require("../controllers/AllProjectsController");
+const { createProjectController } = require("../controllers/CreateProjectController");
+const { deleteProjectController } = require("../controllers/DeleteProjectController");
+const { createUserController } = require("../controllers/CreateUserController");
 const { createAdminController } = require('../controllers/CreateAdminController');
 const { createDonationController } = require('../controllers/createDonationController');
 const { createComunidadController } = require('../controllers/CreateComunidadController');
@@ -25,7 +25,7 @@ const { deleteUserController } = require('../controllers/DeleteUserController');
 const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
 const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
-const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
+const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")
 const { ResetPasswordController } = require("../controllers/ResetPasswordController")
 const { commentsController } = require('../controllers/commentsController');
 const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
@@ -33,6 +33,7 @@ const { getCommentsByUserIdController } = require('../controllers/getCommentsByU
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
 const { userDonationController } = require("../controllers/userDonationController")
+const { banCommentController } = require("../controllers/banCommentController")
 
 
 //--------------------GENERAL--------------------------------
@@ -85,6 +86,8 @@ router.put("/ban", banUserController)
 router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
 router.get('/comments/project', getCommentsByProjectIdController);
 router.get('/comments/user', getCommentsByUserIdController);
+router.put("/comments", banCommentController);
+
 
 //NUEVAS RUTAS PUT
 // router.put('/bankInfos', putBankInfoController)
@@ -130,11 +133,15 @@ router.get("/google/token", (req, res) => {
   if (req.app.locals.GoogleToken) {
     res
       .status(200)
-      .json({ token: req.app.locals.GoogleToken, origin: "google" });
+      .json({ token: req.app.locals.GoogleToken, origin: "google", user: req.app.locals.user });
   } else {
-    res.status(200).json({ msg: "not logged with google" });
+    res.status(200).json({ msg: "not logged with google"});
   }
 });
+
+router.get("google/user", (req, res) => {
+  res.status(200).json({user: req.app.locals.user})
+})
 
 router.get("/logOut/google", (req, res) => {
   req.app.locals.GoogleToken = null;

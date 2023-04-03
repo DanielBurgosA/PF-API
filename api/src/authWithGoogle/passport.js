@@ -14,7 +14,7 @@ module.exports = (passport) => {
         callbackURL: "http://localhost:3001/auth/google/callback"
     },
         async function (accessToken, refreshToken, profile, cb) {
-
+            console.log(profile)
             try {
                 const [user, created] = await User.findOrCreate({
                     where: { googleId: profile.id },
@@ -22,7 +22,8 @@ module.exports = (passport) => {
                         id: profile.id,
                         user_name: profile.name.givenName,
                         user_lastname: profile.name.familyName,
-                        user_email: profile.emails[0].value   
+                        user_email: profile.emails[0].value,  
+                        user_image: profile.photos[0].value 
                     }
                 })
                 cb(null, user)
