@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     cost:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false
     },
     currency:{
@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
       defaultValue: "Dólares"
     },
     currentAmount:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       defaultValue: 0,
       allowNull: true,
     },

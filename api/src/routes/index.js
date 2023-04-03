@@ -84,10 +84,9 @@ router.put("/ban", banUserController)
 
 //--------------------COMMENT--------------------------------
 router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
-router.get('/comments/project', getCommentsByProjectIdController);
-router.get('/comments/user', getCommentsByUserIdController);
+router.get('/comments/project/:id', getCommentsByProjectIdController);
+router.get('/comments/user/:id', passport.authenticate('jwt', { session: false }), getCommentsByUserIdController);
 router.put("/comments", banCommentController);
-
 
 //NUEVAS RUTAS PUT
 // router.put('/bankInfos', putBankInfoController)
