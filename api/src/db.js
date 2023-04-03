@@ -6,15 +6,15 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY
 } = process.env;
 
-// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:/linkingfuture`, {
-//   logging: false, // set to console.log to see the raw SQL queries
-//   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-// });
+//  const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:/linkingfuture`, {
+//    logging: false, // set to console.log to see the raw SQL queries
+//    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+//  });
 
 const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+}); 
 
 const basename = path.basename(__filename);
 
@@ -36,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Project, User, Comunidad, BankInfo, Donation, Admin} = sequelize.models;
+const { Project, User, Comunidad, BankInfo, Donation, Admin, Comment } = sequelize.models;
 
 // Aca vendrian las relaciones
 
@@ -57,6 +57,12 @@ Donation.belongsTo(User,{foreignKey: { allowNull: false }})
 
 Project.hasMany(Donation)
 Donation.belongsTo(Project,{foreignKey: { allowNull: false }})
+
+/* COMMENT RELACIONES */
+User.hasMany(Comment);
+Comment.belongsTo(User);
+Project.hasMany(Comment);
+Comment.belongsTo(Project);
 
 
 

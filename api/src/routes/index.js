@@ -2,74 +2,38 @@ const { Router } = require("express");
 const passport = require("passport");
 
 const router = Router();
-const {
-  allProjectsController,
-  userProjectsController,
-} = require("../controllers/AllProjectsController");
-const {
-  createProjectController,
-} = require("../controllers/CreateProjectController");
-const {
-  deleteProjectController,
-} = require("../controllers/DeleteProjectController");
-const { createUserController } = require("../controllers/CreateUserController");
-const {
-  createAdminController,
-} = require("../controllers/CreateAdminController");
-const {
-  createDonationController,
-} = require("../controllers/createDonationController");
-const {
-  createComunidadController,
-} = require("../controllers/CreateComunidadController");
-const {
-  createBankInfoController,
-} = require("../controllers/CreateBankInfoController");
-const { allAdminsController } = require("../controllers/AllAdminController");
-const {
-  allBankInfoController,
-} = require("../controllers/AllbankInfosController");
-const {
-  allComunidadesController,
-} = require("../controllers/AllComunidadesController");
-const {
-  allDonationsController,
-} = require("../controllers/AllDonationsController");
-const { allUsersController } = require("../controllers/AllUsersController");
-const {
-  createPayment,
-  executePayment,
-  cancelPayment,
-} = require("../controllers/CreatePaymentController");
-const { logInController } = require("../controllers/LogInController");
-const {
-  putBankInfoController,
-} = require("../controllers/PutBankInfoController");
-const {
-  putComunidadController,
-} = require("../controllers/PutComunidadController");
-const { putProjectController } = require("../controllers/PutProjectController");
-const { putUserController } = require("../controllers/PutUserController");
-const { deleteUserController } = require("../controllers/DeleteUserController");
-const {
-  deletebankInfoController,
-} = require("../controllers/DeleteBankInfoController");
-const {
-  deleteComunidadController,
-} = require("../controllers/DeleteComunidadController");
-const {
-  GoogleCallBackController,
-} = require("../controllers/GoogleCallBackController");
-const {
-  ForgotPasswordController,
-} = require("../controllers/ForgotPasswordController");
-const {
-  ResetPasswordController,
-} = require("../controllers/ResetPasswordController");
-const { commentsController } = require("../controllers/commentsController");
+const {allProjectsController, userProjectsController} = require("../controllers/AllProjectsController");
+const {createProjectController} = require("../controllers/CreateProjectController");
+const {deleteProjectController} = require("../controllers/DeleteProjectController");
+const {createUserController} = require("../controllers/CreateUserController");
+const { createAdminController } = require('../controllers/CreateAdminController');
+const { createDonationController } = require('../controllers/createDonationController');
+const { createComunidadController } = require('../controllers/CreateComunidadController');
+const { createBankInfoController } = require('../controllers/CreateBankInfoController');
+const { allAdminsController } = require('../controllers/AllAdminController');
+const { allBankInfoController } = require('../controllers/AllbankInfosController');
+const { allComunidadesController } = require('../controllers/AllComunidadesController');
+const { allDonationsController } = require('../controllers/AllDonationsController');
+const { allUsersController } = require('../controllers/AllUsersController');
+const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
+const { logInController } = require('../controllers/LogInController')
+const { putBankInfoController } = require('../controllers/PutBankInfoController');
+const { putComunidadController } = require('../controllers/PutComunidadController');
+const { putProjectController } = require('../controllers/PutProjectController');
+const { putUserController } = require('../controllers/PutUserController');
+const { deleteUserController } = require('../controllers/DeleteUserController');
+const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
+const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
+const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
+const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
+const { ResetPasswordController } = require("../controllers/ResetPasswordController")
+const { commentsController } = require('../controllers/commentsController');
+const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
+const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
 const { userDonationController } = require("../controllers/userDonationController")
+
 
 //--------------------GENERAL--------------------------------
 router.get("/userprojects", userProjectsController);
@@ -118,11 +82,9 @@ router.put("/projects", putProjectController);
 router.put("/ban", banUserController)
 
 //--------------------COMMENT--------------------------------
-router.post(
-  "/comment",
-  passport.authenticate("jwt", { session: false }),
-  commentsController
-);
+router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
+router.get('/comments/project', getCommentsByProjectIdController);
+router.get('/comments/user', getCommentsByUserIdController);
 
 //NUEVAS RUTAS PUT
 // router.put('/bankInfos', putBankInfoController)
