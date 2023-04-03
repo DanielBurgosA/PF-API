@@ -4,12 +4,10 @@ const { getCommentsByProjectIdHandler } = require("../handlers/getCommentsByProj
 
 
 const getCommentsByProjectIdController = async (req, res) => {
-    const { id, limit } = req.query;
-    const page = parseInt(req.query.page)
+    const { id } = req.params;
     try {
         const comments = await getCommentsByProjectIdHandler(id);
-        const paginatedcomments = paginateditems(page,limit,comments)
-        res.status(200).json(paginatedcomments)
+        res.status(200).json(comments)
     } catch (error) {
         res.status(400).json({ "error": error.message })
     }
