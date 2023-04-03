@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
               autoIncrement:true
             },
             monto: {
-              type: DataTypes.INTEGER,
+              type: DataTypes.FLOAT,
               allowNull: false,
             },
             monto_currency: {
@@ -21,6 +21,10 @@ module.exports = (sequelize) => {
             num_donationxuser:{
               type: DataTypes.INTEGER,
               allowNull:false
+            },
+            id_paypal:{
+              type: DataTypes.STRING,
+              allowNull:true
             }
           },
           { timestamps: false }
