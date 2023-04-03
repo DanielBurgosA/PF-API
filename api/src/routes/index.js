@@ -68,6 +68,8 @@ const {
 } = require("../controllers/ResetPasswordController");
 const { commentsController } = require("../controllers/commentsController");
 const { UserDataController } = require("../controllers/UserDataController");
+const { banUserController } = require("../controllers/banUserController");
+const { userDonationController } = require("../controllers/userDonationController")
 
 //--------------------GENERAL--------------------------------
 router.get("/userprojects", userProjectsController);
@@ -81,6 +83,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   UserDataController
 );
+router.get("/user/donations", passport.authenticate("jwt", { session: false }), userDonationController)
+router.put("/users", putUserController);
 //--------pago
 router.post(
   "/donations",
@@ -111,7 +115,8 @@ router.get("/donations", allDonationsController);
 router.get("/projects", allProjectsController);
 router.put("/deletprojects", deleteProjectController);
 router.put("/projects", putProjectController);
-router.put("/users", putUserController);
+router.put("/ban", banUserController)
+
 //--------------------COMMENT--------------------------------
 router.post(
   "/comment",
