@@ -26,48 +26,62 @@ const { deleteUserController } = require('../controllers/DeleteUserController');
 const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
 const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
 const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
-const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")    
+const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")
 const { ResetPasswordController } = require("../controllers/ResetPasswordController")
-//----------------------------------------------------
-router.post('/users', createUserController)
-router.get('/users', allUsersController)
-router.get('/admins', allAdminsController)
-router.get('/bankInfos', allBankInfoController)
-router.get('/comunidads', allComunidadesController)
-//----------------------------------------------------
-router.put('/deletprojects', deleteProjectController)
-router.post('/projects', passport.authenticate('jwt', { session: false }), createProjectController)
-//----------------------------------------------------
-router.post('/admins', createAdminController)
-router.post('/donations', createDonationController) 
-router.post('/comunidads', createComunidadController)   
-router.post('/bankInfos', createBankInfoController)
-//----------------------------------------------------
-router.get('/donations', allDonationsController)
-router.get('/projects', allProjectsController)
-//----------------------------------------------------
+const { commentsController } = require('../controllers/commentsController');
+const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
+const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
+
+//--------------------GENERAL--------------------------------
 router.get('/userprojects', userProjectsController)
-//----------------------------------------------------
-router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }), createDonationController)
-router.post('/create-payment', createPayment)
+router.post('/login', logInController);
+//--------------------PASSWORD RECOVERY--------------------------------
+router.post("/forgotPassword", ForgotPasswordController)
+router.put("/reset", ResetPasswordController)
+//--------------------USERS--------------------------------
+//--------pago
+router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'http://localhost:3000/login', session: false }), createDonationController)
+router.post('/create-payment', passport.authenticate('jwt', { session: false }), createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
-//------------------------------------------------------------------------
-//NUEVAS RUTAS PUT
-router.put('/bankInfos', putBankInfoController)
-router.put('/comunidads', putComunidadController)
+//--------Crear proyecto
+router.post('/projects', passport.authenticate('jwt', { session: false }), createProjectController)
+router.post
+//--------------------ADMIN--------------------------------
+router.post('/users', createUserController)
+router.get('/users', allUsersController)
+router.get('/donations', allDonationsController)
+router.get('/projects', allProjectsController)
+router.put('/deletprojects', deleteProjectController)
 router.put('/projects', putProjectController)
 router.put('/users', putUserController)
+//--------------------COMMENT--------------------------------
+router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
+router.get('/comments/project', getCommentsByProjectIdController);
+router.get('/comments/user', getCommentsByUserIdController);
+
+
+//NUEVAS RUTAS PUT
+// router.put('/bankInfos', putBankInfoController)
+// router.put('/comunidads', putComunidadController)
+// router.put('/users/delete', deleteUserController)
+// router.put('/bankInfos/delete', deletebankInfoController)
+// router.put('/comunidads/delete',deleteComunidadController)
+// router.put('/projects/delete', deleteProjectController)
+// router.get('/admins', allAdminsController)
+// router.post('/admins', createAdminController)
+// router.get('/bankInfos', allBankInfoController)
+// router.post('/bankInfos', createBankInfoController)
+// router.get('/comunidads', allComunidadesController)
+// router.post('/comunidads', createComunidadController)
+
+
 
 //NUEVAS RUTAS DELETE
-router.put('/users/delete', deleteUserController)
-router.put('/bankInfos/delete', deletebankInfoController)
-router.put('/comunidads/delete',deleteComunidadController)
-router.put('/projects/delete', deleteProjectController)
 
 
 //------------------------------------------------------------------------
-router.post('/login', logInController);
+
 
 //--------------------------------------------------------------------------------------------------------------
 //google auth
@@ -75,7 +89,7 @@ router.get('/auth/google',
   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'], session: false }));
 
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }),
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login', session: false }),
   GoogleCallBackController
 );
 
@@ -94,8 +108,6 @@ router.get('/logOut/google', (req, res) => {
 //--------------------------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------
-//passwordrecovery
-router.post("/forgotPassword", ForgotPasswordController)
-router.put("/reset", ResetPasswordController)
+
 
 module.exports = router;
