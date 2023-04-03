@@ -23,7 +23,7 @@ const updateProject = async (
     if(status){infotoupdate.status=status}
 
     projecttoUpdate.update(infotoupdate)
-    projecttoUpdate.save()
+    //projecttoUpdate.save()
 
     return projecttoUpdate
 }
