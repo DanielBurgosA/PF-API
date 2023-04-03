@@ -19,8 +19,8 @@ require('./authWithGoogle/passport')(passport);
 server.use(passport.initialize());
 
 server.use(cors({
-  // origin: 'https://client-pf-seven.vercel.app',
-  origin: 'http://localhost:3000',
+  origin: 'https://client-pf-seven.vercel.app',
+  // origin: 'http://localhost:3000',
   credentials: true}))
 
 server.name = 'API';

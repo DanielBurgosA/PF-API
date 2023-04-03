@@ -40,7 +40,7 @@ router.post("/forgotPassword", ForgotPasswordController)
 router.put("/reset", ResetPasswordController)
 //--------------------USERS--------------------------------
 //--------pago
-router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'http://localhost:3000/login', session: false }), createDonationController)
+router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }), createDonationController)
 router.post('/create-payment', passport.authenticate('jwt', { session: false }), createPayment)
 router.get('/execute-payment', executePayment)
 router.get('/cancel-payment', cancelPayment)
