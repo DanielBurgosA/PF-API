@@ -33,10 +33,11 @@ const { getCommentsByUserIdController } = require('../controllers/getCommentsByU
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
 const { userDonationController } = require("../controllers/userDonationController");
-
+const { getAllCommentsController } = require("../controllers/getAllCommentsController")
 const { banCommentController } = require("../controllers/banCommentController");
 const { getUserProjectsController } = require("../controllers/getUserProjectsController")
 const { projectByIdController } = require("../controllers/projectByIdController");
+
 
 
 
@@ -56,6 +57,8 @@ router.get(
 router.get("/user/donations", passport.authenticate("jwt", { session: false }), userDonationController)
 router.put("/users",passport.authenticate("jwt", { session: false }), putUserController);
 router.get("/user/projects", passport.authenticate("jwt", { session: false }), getUserProjectsController)
+
+
 //--------pago
 router.post(
   "/donations",
@@ -83,15 +86,17 @@ router.post("/users", createUserController);
 router.get("/users", allUsersController);
 router.get("/donations", allDonationsController);
 router.get("/projects", allProjectsController);
+router.get("/comments/project", getAllCommentsController)
 router.put("/deletprojects", deleteProjectController);
 router.put("/projects", putProjectController);
-router.put("/ban", banUserController)
+router.put("/ban", banUserController);
+router.put("/comments", banCommentController);
 
 //--------------------COMMENT--------------------------------
 router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
 router.get('/comments/project/:id', getCommentsByProjectIdController);
 router.get('/comments/user/:id', passport.authenticate('jwt', { session: false }), getCommentsByUserIdController);
-router.put("/comments", banCommentController);
+
 
 //NUEVAS RUTAS PUT
 // router.put('/bankInfos', putBankInfoController)

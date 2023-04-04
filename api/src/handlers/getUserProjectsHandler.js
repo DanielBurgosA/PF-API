@@ -1,8 +1,8 @@
-const { Donation } = require("../db");
+const { Project } = require("../db");
 
 const getUserProjectsHandler = async (id) => {
     try {
-        const projects = await Donation.findAll({ where: { id } });
+        const projects = await Project.findAll({ where: { userId: id } });
         return projects;
     } catch (error) {
         console.log(error.message);
