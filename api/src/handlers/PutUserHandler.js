@@ -15,7 +15,7 @@ const updateUser = async(
     if(user_name){infotoupdate.user_name=user_name}
     if(user_lastname){infotoupdate.user_lastname=user_lastname}
 
-    usertoUpdate.update(infotoupdate)
+    usertoUpdate.set(infotoupdate)
     usertoUpdate.save()
 
     return usertoUpdate
