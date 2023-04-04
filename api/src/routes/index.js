@@ -15,7 +15,7 @@ const { allBankInfoController } = require('../controllers/AllbankInfosController
 const { allComunidadesController } = require('../controllers/AllComunidadesController');
 const { allDonationsController } = require('../controllers/AllDonationsController');
 const { allUsersController } = require('../controllers/AllUsersController');
-const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
+const { createPayment, executePayment } = require('../controllers/CreatePaymentController')
 const { logInController } = require('../controllers/LogInController')
 const { putBankInfoController } = require('../controllers/PutBankInfoController');
 const { putComunidadController } = require('../controllers/PutComunidadController');
@@ -64,7 +64,6 @@ router.post(
   createPayment
 );
 router.get("/execute-payment", executePayment);
-router.get("/cancel-payment", cancelPayment);
 //--------Crear proyecto
 router.post(
   "/projects",
