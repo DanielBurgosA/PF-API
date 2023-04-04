@@ -18,14 +18,8 @@ const getAllDonations = async (
     const allDonations = await Donation.findAll({
         where,
         include: [
-            {
-                model: User,
-                include: [
-                    {
-                        model:Project,
-                    }
-                ]
-            }
+            { model: User, attributes: ["user_name"]},
+            { model: Project , attributes: ["name"]},
         ]
     })
     return allDonations
