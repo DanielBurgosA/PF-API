@@ -23,7 +23,8 @@ module.exports = (passport) => {
         try {
             const user = await User.findOne({ where: { id: jwt_payload.sub } }) // seq method - change that 
             
-            if (user) {
+            if (user)
+            {
                 if(user.deleted){
                     return done(null, false);
                 }
