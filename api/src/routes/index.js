@@ -32,8 +32,9 @@ const { getCommentsByProjectIdController } = require('../controllers/getComments
 const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
-const { userDonationController } = require("../controllers/userDonationController")
-const { banCommentController } = require("../controllers/banCommentController")
+const { userDonationController } = require("../controllers/userDonationController");
+const { banCommentController } = require("../controllers/banCommentController");
+const { getUserProjectsController } = require("../controllers/getUserProjectsController")
 
 
 //--------------------GENERAL--------------------------------
@@ -49,7 +50,8 @@ router.get(
   UserDataController
 );
 router.get("/user/donations", passport.authenticate("jwt", { session: false }), userDonationController)
-router.put("/users", putUserController);
+router.put("/users",passport.authenticate("jwt", { session: false }), putUserController);
+router.get("/user/projects", passport.authenticate("jwt", { session: false }), getUserProjectsController)
 //--------pago
 router.post(
   "/donations",

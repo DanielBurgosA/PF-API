@@ -19,7 +19,6 @@ module.exports = (passport) => {
                 const [user, created] = await User.findOrCreate({
                     where: { googleId: profile.id },
                     defaults: {
-                        id: profile.id,
                         user_name: profile.name.givenName,
                         user_lastname: profile.name.familyName,
                         user_email: profile.emails[0].value,  
