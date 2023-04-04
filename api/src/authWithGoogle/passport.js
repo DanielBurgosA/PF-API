@@ -34,7 +34,7 @@ module.exports = (passport) => {
                     enviarCorreo(user.user_email, "¡bienvenido!", mensaje, "createUser")
                 }
                 
-
+                console.log("pasport");
                 cb(null, user)
             } catch (err) {
                 cb(err, null)

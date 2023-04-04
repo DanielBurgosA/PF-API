@@ -128,12 +128,19 @@ router.get(
 );
 
 router.get("/google/token", (req, res) => {
-  if (req.app.locals.GoogleToken) {
+  console.log("ruta");
+  if(req.app.locals.deleted){
+    console.log("ruta banned");
+    req.app.locals.GoogleToken = null;
+    res.status(200).json({ success: false, msg: "user banned" }) 
+  }
+  else if (req.app.locals.GoogleToken) {
+    console.log("ruta no banned");
     res
       .status(200)
       .json({ token: req.app.locals.GoogleToken, origin: "google" });
   } else {
-    res.status(200).json({ msg: "not logged with google" });
+    res.status(400).json({ msg: "not logged with google" });
   }
 });
 
