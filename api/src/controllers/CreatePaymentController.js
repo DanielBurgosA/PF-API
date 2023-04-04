@@ -1,6 +1,6 @@
 const request = require('request');
 const { createDonation } = require("../handlers/CreateDonationHandler")
-const {Project} = require('db')
+const {Project} = require('../db')
 
 const { CLIENT,SECRET } = process.env;
 
