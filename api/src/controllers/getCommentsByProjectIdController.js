@@ -1,6 +1,7 @@
 "use strict"
 const { paginateditems } = require("../handlers/PaginationHandler");
 const { getCommentsByProjectIdHandler } = require("../handlers/getCommentsByProjectIdHandler")
+const { getAllCommentsHandler } = require("../handlers/getAllCommentsHandler")
 
 
 const getCommentsByProjectIdController = async (req, res) => {

@@ -10,7 +10,7 @@ const createProjectController = async (req, res) => {
                   } = req.body;
     
     const userid = req.user.id;
-    console.log(userid);
+    
 
     try {
         const postProject = await createProject(

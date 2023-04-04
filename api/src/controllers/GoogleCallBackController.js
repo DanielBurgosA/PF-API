@@ -14,6 +14,12 @@ const GoogleCallBackController = (req, res) => {
         req.app.locals.deleted=req.user.deleted;
         const token = issueJWT(req.user);
         req.app.locals.GoogleToken = token.token
+        req.app.locals.user = {
+            name: req.user.user_name,
+            lastname: req.user.user_lastname,
+            email: req.user.user_email,
+            image: req.user.user_image
+        };
         console.log("paso");
     }
     res.redirect('http://localhost:3000/home');
