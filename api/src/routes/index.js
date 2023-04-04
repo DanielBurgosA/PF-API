@@ -44,6 +44,8 @@ const { projectByIdController } = require("../controllers/projectByIdController"
 router.get("/userprojects", userProjectsController);
 router.post("/login", logInController);
 router.get("/projects/:id", projectByIdController);
+router.get("/banValidation", passport.authenticate("jwt", { session: false }), 
+  (req, res) => { res.status(200).json("ok")})
 //--------------------PASSWORD RECOVERY--------------------------------
 router.post("/forgotPassword", ForgotPasswordController);
 router.put("/reset", ResetPasswordController);
