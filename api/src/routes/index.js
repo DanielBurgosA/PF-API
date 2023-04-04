@@ -1,65 +1,128 @@
-const { Router } = require('express');
-const passport = require('passport');
-
+const { Router } = require("express");
+const passport = require("passport");
 
 const router = Router();
-const {allProjectsController, userProjectsController} = require("../controllers/AllProjectsController");
-const {createProjectController} = require("../controllers/CreateProjectController");
-const {deleteProjectController} = require("../controllers/DeleteProjectController");
-const {createUserController} = require("../controllers/CreateUserController");
-const { createAdminController } = require('../controllers/CreateAdminController');
-const { createDonationController } = require('../controllers/createDonationController');
-const { createComunidadController } = require('../controllers/CreateComunidadController');
-const { createBankInfoController } = require('../controllers/CreateBankInfoController');
-const { allAdminsController } = require('../controllers/AllAdminController');
-const { allBankInfoController } = require('../controllers/AllbankInfosController');
-const { allComunidadesController } = require('../controllers/AllComunidadesController');
-const { allDonationsController } = require('../controllers/AllDonationsController');
-const { allUsersController } = require('../controllers/AllUsersController');
-const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
-const { logInController } = require('../controllers/LogInController')
-const { putBankInfoController } = require('../controllers/PutBankInfoController');
-const { putComunidadController } = require('../controllers/PutComunidadController');
-const { putProjectController } = require('../controllers/PutProjectController');
-const { putUserController } = require('../controllers/PutUserController');
-const { deleteUserController } = require('../controllers/DeleteUserController');
-const { deletebankInfoController } = require('../controllers/DeleteBankInfoController');
-const { deleteComunidadController } = require('../controllers/DeleteComunidadController');
-const { GoogleCallBackController } = require('../controllers/GoogleCallBackController')
-const { ForgotPasswordController } = require("../controllers/ForgotPasswordController")
-const { ResetPasswordController } = require("../controllers/ResetPasswordController")
-const { commentsController } = require('../controllers/commentsController');
-const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
-const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
-
+const {
+  allProjectsController,
+  userProjectsController,
+} = require("../controllers/AllProjectsController");
+const {
+  createProjectController,
+} = require("../controllers/CreateProjectController");
+const {
+  deleteProjectController,
+} = require("../controllers/DeleteProjectController");
+const { createUserController } = require("../controllers/CreateUserController");
+const {
+  createAdminController,
+} = require("../controllers/CreateAdminController");
+const {
+  createDonationController,
+} = require("../controllers/createDonationController");
+const {
+  createComunidadController,
+} = require("../controllers/CreateComunidadController");
+const {
+  createBankInfoController,
+} = require("../controllers/CreateBankInfoController");
+const { allAdminsController } = require("../controllers/AllAdminController");
+const {
+  allBankInfoController,
+} = require("../controllers/AllbankInfosController");
+const {
+  allComunidadesController,
+} = require("../controllers/AllComunidadesController");
+const {
+  allDonationsController,
+} = require("../controllers/AllDonationsController");
+const { allUsersController } = require("../controllers/AllUsersController");
+const {
+  createPayment,
+  executePayment,
+  cancelPayment,
+} = require("../controllers/CreatePaymentController");
+const { logInController } = require("../controllers/LogInController");
+const {
+  putBankInfoController,
+} = require("../controllers/PutBankInfoController");
+const {
+  putComunidadController,
+} = require("../controllers/PutComunidadController");
+const { putProjectController } = require("../controllers/PutProjectController");
+const { putUserController } = require("../controllers/PutUserController");
+const { deleteUserController } = require("../controllers/DeleteUserController");
+const {
+  deletebankInfoController,
+} = require("../controllers/DeleteBankInfoController");
+const {
+  deleteComunidadController,
+} = require("../controllers/DeleteComunidadController");
+const {
+  GoogleCallBackController,
+} = require("../controllers/GoogleCallBackController");
+const {
+  ForgotPasswordController,
+} = require("../controllers/ForgotPasswordController");
+const {
+  ResetPasswordController,
+} = require("../controllers/ResetPasswordController");
+const { commentsController } = require("../controllers/commentsController");
+const {
+  getCommentsByProjectIdController,
+} = require("../controllers/getCommentsByProjectIdController");
+const {
+  getCommentsByUserIdController,
+} = require("../controllers/getCommentsByUserIdController");
+const {
+  projectByIdController,
+} = require("../controllers/projectByIdController");
 //--------------------GENERAL--------------------------------
-router.get('/userprojects', userProjectsController)
-router.post('/login', logInController);
+router.get("/userprojects", userProjectsController);
+router.post("/login", logInController);
 //--------------------PASSWORD RECOVERY--------------------------------
-router.post("/forgotPassword", ForgotPasswordController)
-router.put("/reset", ResetPasswordController)
+router.post("/forgotPassword", ForgotPasswordController);
+router.put("/reset", ResetPasswordController);
 //--------------------USERS--------------------------------
 //--------pago
-router.post('/donations', passport.authenticate('jwt', { failureRedirect: 'https://client-pf-seven.vercel.app/login', session: false }), createDonationController)
-router.post('/create-payment', passport.authenticate('jwt', { session: false }), createPayment)
-router.get('/execute-payment', executePayment)
-router.get('/cancel-payment', cancelPayment)
+router.post(
+  "/donations",
+  passport.authenticate("jwt", {
+    failureRedirect: "https://client-pf-seven.vercel.app/login",
+    session: false,
+  }),
+  createDonationController
+);
+router.post(
+  "/create-payment",
+  passport.authenticate("jwt", { session: false }),
+  createPayment
+);
+router.get("/execute-payment", executePayment);
+router.get("/cancel-payment", cancelPayment);
 //--------Crear proyecto
-router.post('/projects', passport.authenticate('jwt', { session: false }), createProjectController)
-router.post
+router.post(
+  "/projects",
+  passport.authenticate("jwt", { session: false }),
+  createProjectController
+);
+router.post;
 //--------------------ADMIN--------------------------------
-router.post('/users', createUserController)
-router.get('/users', allUsersController)
-router.get('/donations', allDonationsController)
-router.get('/projects', allProjectsController)
-router.put('/deletprojects', deleteProjectController)
-router.put('/projects', putProjectController)
-router.put('/users', putUserController)
+router.post("/users", createUserController);
+router.get("/users", allUsersController);
+router.get("/donations", allDonationsController);
+router.get("/projects", allProjectsController);
+router.get("/projects/:id", projectByIdController);
+router.put("/deletprojects", deleteProjectController);
+router.put("/projects", putProjectController);
+router.put("/users", putUserController);
 //--------------------COMMENT--------------------------------
-router.post('/comment', passport.authenticate('jwt', { session: false }), commentsController);
-router.get('/comments/project', getCommentsByProjectIdController);
-router.get('/comments/user', getCommentsByUserIdController);
-
+router.post(
+  "/comment",
+  passport.authenticate("jwt", { session: false }),
+  commentsController
+);
+router.get("/comments/project", getCommentsByProjectIdController);
+router.get("/comments/user", getCommentsByUserIdController);
 
 //NUEVAS RUTAS PUT
 // router.put('/bankInfos', putBankInfoController)
@@ -75,39 +138,48 @@ router.get('/comments/user', getCommentsByUserIdController);
 // router.get('/comunidads', allComunidadesController)
 // router.post('/comunidads', createComunidadController)
 
-
-
 //NUEVAS RUTAS DELETE
-
 
 //------------------------------------------------------------------------
 
-
 //--------------------------------------------------------------------------------------------------------------
 //google auth
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'], session: false }));
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+    ],
+    session: false,
+  })
+);
 
-router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login', session: false }),
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000/login",
+    session: false,
+  }),
   GoogleCallBackController
 );
 
-router.get('/google/token', (req, res)=>{
-  if (req.app.locals.GoogleToken){
-    res.status(200).json({token:req.app.locals.GoogleToken, origin: "google"})
-  }else{
-    res.status(200).json({msg:"not logged with google"})
+router.get("/google/token", (req, res) => {
+  if (req.app.locals.GoogleToken) {
+    res
+      .status(200)
+      .json({ token: req.app.locals.GoogleToken, origin: "google" });
+  } else {
+    res.status(200).json({ msg: "not logged with google" });
   }
-})
+});
 
-router.get('/logOut/google', (req, res) => {
-  req.app.locals.GoogleToken = null
-  res.status(200).json({msg: "you are out"})
-})
+router.get("/logOut/google", (req, res) => {
+  req.app.locals.GoogleToken = null;
+  res.status(200).json({ msg: "you are out" });
+});
 //--------------------------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------
-
 
 module.exports = router;
