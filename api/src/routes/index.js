@@ -31,6 +31,7 @@ const { ResetPasswordController } = require("../controllers/ResetPasswordControl
 const { commentsController } = require('../controllers/commentsController');
 const { getCommentsByProjectIdController } = require('../controllers/getCommentsByProjectIdController')
 const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
+const {projectByIdController,} = require("../controllers/projectByIdController");
 
 //--------------------GENERAL--------------------------------
 router.get('/userprojects', userProjectsController)
@@ -52,6 +53,7 @@ router.post('/users', createUserController)
 router.get('/users', allUsersController)
 router.get('/donations', allDonationsController)
 router.get('/projects', allProjectsController)
+router.get("/projects/:id", projectByIdController);
 router.put('/deletprojects', deleteProjectController)
 router.put('/projects', putProjectController)
 router.put('/users', putUserController)
