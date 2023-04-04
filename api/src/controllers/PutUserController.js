@@ -3,18 +3,15 @@ const { updateUser } = require("../handlers/PutUserHandler")
 
 const putUserController = async(req,res)=>{
     const {
-        user_name,
-        user_lastname,
-        id,
-        user_email
-    } = req.query
+        user_email,
+        password
+    } = req.body
 
     try {
         const usertoUpdate = await updateUser(
-            user_name,
-            user_lastname,
-            id,
-            user_email
+            req.user.id,
+            user_email,
+            password
         )
 
         res.status(200).json(usertoUpdate)
