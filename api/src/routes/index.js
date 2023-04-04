@@ -32,12 +32,14 @@ const { getCommentsByProjectIdController } = require('../controllers/getComments
 const { getCommentsByUserIdController } = require('../controllers/getCommentsByUserIdController')
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
-const { userDonationController } = require("../controllers/userDonationController")
+const { userDonationController } = require("../controllers/userDonationController");
+const { projectByIdController } = require("../controllers/projectByIdController");
 
 
 //--------------------GENERAL--------------------------------
 router.get("/userprojects", userProjectsController);
 router.post("/login", logInController);
+router.get("/projects/:id", projectByIdController);
 //--------------------PASSWORD RECOVERY--------------------------------
 router.post("/forgotPassword", ForgotPasswordController);
 router.put("/reset", ResetPasswordController);
