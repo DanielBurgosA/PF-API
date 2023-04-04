@@ -1,7 +1,7 @@
 const { getUserProjectsHandler} = require("../handlers/getUserProjectsHandler")
 
 const getUserProjectsController = async (req, res) => {
-    console.log(req.user)
+   
     try {
         const projects = await getUserProjectsHandler(req.user.id);
         res.status(200).json(projects);
