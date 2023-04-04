@@ -1,5 +1,6 @@
 const request = require('request');
 const { createDonation } = require("../handlers/CreateDonationHandler")
+const {Project} = require('db')
 
 const { CLIENT,SECRET } = process.env;
 
@@ -17,6 +18,11 @@ const createPayment = async (req, res) => {
     const {amount, projectId} = req.body;
     const {token} = req.query
 
+    const project = await  Project.findOne({where: {id:projectId}})
+    const max = project.cost-project.curretAmount;
+
+    const value = amount>max? max : amount;
+
     if (token !== undefined){
         res.status(201).json("Salio bien o mal")
     }
@@ -25,7 +31,7 @@ const createPayment = async (req, res) => {
         purchase_units: [{
             amount: {
                 currency_code: 'USD', //https://developer.paypal.com/docs/api/reference/currency-codes/
-                value: amount
+                value: value
             }
         }],
         application_context: {
