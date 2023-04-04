@@ -10,7 +10,11 @@ const createDonation = async (
     try {
         const user = await  User.findOne({where: {id:userid}})
         const project = await  Project.findOne({where: {id:projectid}})
+        
         let num_donationxuser = (await Donation.count({where:{userId:userid, projectId:projectid}})) +1
+        const mensaje = "Muchas gracias "+ user.user_name + " por tu donación \n\n" +
+        "Tu donacion de " + monto +" para el proyecto " + project.name + " a quedado registrada\n\n";
+
         const newDonation = await Donation.create({
             monto,
             num_donationxuser
@@ -25,10 +29,6 @@ const createDonation = async (
         if(project.cost - project.currentAmount<=0){
             await project.update({ completed: true }, { where: { id: projectid }})
         }
-        console.log(project.completed);
-        
-        const mensaje = "Muchas gracias "+ user.user_name + " por tu donación \n\n" +
-        "Tu donacion de " + monto +" para el proyecto " + project.name + " a quedado registrada\n\n" +
 
         enviarCorreo(user.user_email, "Donacion registrada", mensaje, "Donacion")
 

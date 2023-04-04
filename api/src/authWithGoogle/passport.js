@@ -3,6 +3,8 @@ const { defaults } = require('request');
 const { User } = require("../db");
 const { ID_CLIENT_GOOGLE, KEY_SECRET_GOOGLE } = process.env;
 const { where } = require("sequelize");
+const {enviarCorreo} = require("../controllers/NotificationController");
+const { log } = require('console');
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -25,6 +27,13 @@ module.exports = (passport) => {
                         user_image: profile.photos[0].value 
                     }
                 })
+
+                if(created){
+                    const mensaje = `Hola ${user.user_name} ${user.user_lastname}, gracias por unirte a nuestra comunidad`
+                    enviarCorreo(user.user_email, "¡bienvenido!", mensaje, "createUser")
+                }
+                
+
                 cb(null, user)
             } catch (err) {
                 cb(err, null)

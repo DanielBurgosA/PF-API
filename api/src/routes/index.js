@@ -15,7 +15,7 @@ const { allBankInfoController } = require('../controllers/AllbankInfosController
 const { allComunidadesController } = require('../controllers/AllComunidadesController');
 const { allDonationsController } = require('../controllers/AllDonationsController');
 const { allUsersController } = require('../controllers/AllUsersController');
-const { createPayment, executePayment, cancelPayment } = require('../controllers/CreatePaymentController')
+const { createPayment, executePayment } = require('../controllers/CreatePaymentController')
 const { logInController } = require('../controllers/LogInController')
 const { putBankInfoController } = require('../controllers/PutBankInfoController');
 const { putComunidadController } = require('../controllers/PutComunidadController');
@@ -33,13 +33,18 @@ const { getCommentsByUserIdController } = require('../controllers/getCommentsByU
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
 const { userDonationController } = require("../controllers/userDonationController");
+<<<<<<< HEAD
 const { banCommentController } = require("../controllers/banCommentController");
 const { getUserProjectsController } = require("../controllers/getUserProjectsController")
+=======
+const { projectByIdController } = require("../controllers/projectByIdController");
+>>>>>>> 1103db6d3e9526c69e3b218ad7dcfbc78287ff54
 
 
 //--------------------GENERAL--------------------------------
 router.get("/userprojects", userProjectsController);
 router.post("/login", logInController);
+router.get("/projects/:id", projectByIdController);
 //--------------------PASSWORD RECOVERY--------------------------------
 router.post("/forgotPassword", ForgotPasswordController);
 router.put("/reset", ResetPasswordController);
@@ -67,7 +72,6 @@ router.post(
   createPayment
 );
 router.get("/execute-payment", executePayment);
-router.get("/cancel-payment", cancelPayment);
 //--------Crear proyecto
 router.post(
   "/projects",
