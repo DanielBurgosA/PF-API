@@ -11,7 +11,7 @@ const createUserController = async (req, res) => {
         user_lastname,
         user_password
       );
-      const mensaje = `Hola ${user_name}, gracias por unirte a nuestra comunidad`
+      const mensaje = `Hola ${user_name} ${user_lastname}, gracias por unirte a nuestra comunidad`
 
       enviarCorreo(user_email, "¡bienvenido!", mensaje, "createUser")
       res.status(200).json(postUser);
