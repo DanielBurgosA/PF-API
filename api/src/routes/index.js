@@ -33,12 +33,11 @@ const { getCommentsByUserIdController } = require('../controllers/getCommentsByU
 const { UserDataController } = require("../controllers/UserDataController");
 const { banUserController } = require("../controllers/banUserController");
 const { userDonationController } = require("../controllers/userDonationController");
-<<<<<<< HEAD
+
 const { banCommentController } = require("../controllers/banCommentController");
 const { getUserProjectsController } = require("../controllers/getUserProjectsController")
-=======
 const { projectByIdController } = require("../controllers/projectByIdController");
->>>>>>> 1103db6d3e9526c69e3b218ad7dcfbc78287ff54
+
 
 
 //--------------------GENERAL--------------------------------
