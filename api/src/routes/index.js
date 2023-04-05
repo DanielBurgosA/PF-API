@@ -37,6 +37,7 @@ const { getAllCommentsController } = require("../controllers/getAllCommentsContr
 const { banCommentController } = require("../controllers/banCommentController");
 const { getUserProjectsController } = require("../controllers/getUserProjectsController")
 const { projectByIdController } = require("../controllers/projectByIdController");
+const { putImageController } = require("../controllers/PutImageController")
 
 
 
@@ -59,7 +60,7 @@ router.get(
 router.get("/user/donations", passport.authenticate("jwt", { session: false }), userDonationController)
 router.put("/users",passport.authenticate("jwt", { session: false }), putUserController);
 router.get("/user/projects", passport.authenticate("jwt", { session: false }), getUserProjectsController)
-
+router.put("/imageUser", passport.authenticate("jwt", { session: false }), putImageController);
 
 //--------pago
 router.post(

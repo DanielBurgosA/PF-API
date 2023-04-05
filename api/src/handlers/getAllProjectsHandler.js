@@ -1,5 +1,6 @@
 const {  Op } = require("sequelize");
-const { Project} = require("../db");
+const { Project, User} = require("../db");
+
 
 const getAllProjects = async (
       id,
@@ -22,7 +23,7 @@ const getAllProjects = async (
       if(userId){ where.userId = userId }
       if(adminId){ where.adminId = adminId}
 
-      const allProjects = await Project.findAll({where})
+      const allProjects = await Project.findAll({where,include:{ model: User}});
       return allProjects
         
   };
