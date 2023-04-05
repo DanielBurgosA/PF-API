@@ -36,7 +36,7 @@ const { userDonationController } = require("../controllers/userDonationControlle
 const { getAllCommentsController } = require("../controllers/getAllCommentsController")
 const { banCommentController } = require("../controllers/banCommentController");
 const { getUserProjectsController } = require("../controllers/getUserProjectsController")
-const { projectByIdController } = require("../controllers/projectByIdController");
+const { projectByIdController } = require("../controllers/ProjectByIdController");
 const { putImageController } = require("../controllers/PutImageController")
 
 
@@ -171,4 +171,3 @@ router.get("/logOut/google", (req, res) => {
 //-----------------------------------------------------------------------------------------------------------
 
 module.exports = router;
-
