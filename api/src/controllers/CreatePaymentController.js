@@ -1,5 +1,6 @@
 const request = require('request');
 const { createDonation } = require("../handlers/CreateDonationHandler")
+const {Project} = require('../db')
 
 const { CLIENT,SECRET } = process.env;
 
@@ -8,14 +9,16 @@ const PAYPAL_API = 'https://api-m.sandbox.paypal.com'; // Live https://api-m.pay
 const auth = { user: CLIENT, pass: SECRET }
 
 
-
-
-
 const createPayment = async (req, res) => {
 
     const userId = req.user.id;
     const {amount, projectId} = req.body;
     const {token} = req.query
+
+    const project = await  Project.findOne({where: {id:projectId}})
+    const max = project.cost-project.curretAmount;
+
+    const value = amount>max? max : amount;
 
     if (token !== undefined){
         res.status(201).json("Salio bien o mal")
@@ -25,7 +28,7 @@ const createPayment = async (req, res) => {
         purchase_units: [{
             amount: {
                 currency_code: 'USD', //https://developer.paypal.com/docs/api/reference/currency-codes/
-                value: amount
+                value: value
             }
         }],
         application_context: {
@@ -33,7 +36,7 @@ const createPayment = async (req, res) => {
             landing_page: 'NO_PREFERENCE', // Default, para mas informacion https://developer.paypal.com/docs/api/orders/v2/#definition-order_application_context
             user_action: 'PAY_NOW', // Accion para que en paypal muestre el monto del pago
             return_url: `https://pf-api-production.up.railway.app/execute-payment?userId=${userId}&projectId=${projectId}&amount=${amount}`, // Url despues de realizar el pago
-            cancel_url: `https://pf-api-production.up.railway.app/cancel-payment` // Url despues de realizar el pago
+            cancel_url: `https://client-pf-seven.vercel.app/cancel-payment` // Url despues de realizar el pago
             // return_url: `http://localhost:3001/execute-payment?userId=${userId}&projectId=${projectId}&amount=${amount}`, // Url despues de realizar el pago
             // cancel_url: `http://localhost:3001/cancel-payment` // Url despues de realizar el pago
         }
@@ -68,7 +71,7 @@ const executePayment = async (req, res) => {
 
                 createDonation(amount,userId,projectId);
 
-                res.status(201).json("Se realizo el pago correctamente")
+                res.redirect("https://client-pf-seven.vercel.app/execute-payment");
             } else {
                 res.status(400).json({ error: 'La transacción no se ha completado exitosamente' });
             }
@@ -77,9 +80,5 @@ const executePayment = async (req, res) => {
     
 }
 
-const cancelPayment = async (req, res) => {
-    res.status(201).json("Se cancelo el pago correctamente")
-  
-}
 
-module.exports = {createPayment, executePayment, cancelPayment};
+module.exports = {createPayment, executePayment };

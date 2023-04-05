@@ -22,7 +22,12 @@ module.exports = (passport) => {
         // We will assign the `sub` property on the JWT to the database ID of user
         try {
             const user = await User.findOne({ where: { id: jwt_payload.sub } }) // seq method - change that 
-            if (user) {
+            
+            if (user)
+            {
+                if(user.deleted){
+                    return done(null, false);
+                }
                 return done(null, user);
             } else {
                 return done(null, false);

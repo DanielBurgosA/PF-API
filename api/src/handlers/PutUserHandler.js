@@ -1,25 +1,34 @@
-const {User} = require('../db')
+const { User } = require('../db')
+const { genPassword } = require("../authWithJWT/utils")
 
-const updateUser = async(
-    user_name,
-    user_lastname,
+const updateUser = async (
     id,
-    user_email
-)=>{
-    let where = {}
-    if(id){where.id=id}
-    if(user_email){where.user_email=user_email}
-    const usertoUpdate = await User.findOne({where})
+    user_email,
+    password
+) => {
 
-    let infotoupdate = {}
-    if(user_name){infotoupdate.user_name=user_name}
-    if(user_lastname){infotoupdate.user_lastname=user_lastname}
+    try {
+        let infotoupdate = {}
+        if (user_email) { infotoupdate.user_email = user_email }
+        if (password) {
+            {
+                const hashSalt = genPassword(password);
+                infotoupdate.hash = hashSalt.hash;
+                infotoupdate.salt = hashSalt.salt;
+            }
+        }
 
-    usertoUpdate.update(infotoupdate)
-    usertoUpdate.save()
+        const usertoUpdate = await User.findOne({ where: { id } })
 
-    return usertoUpdate
+        await usertoUpdate.update(infotoupdate);
+
+        return usertoUpdate;
+        
+    } catch (err){
+        console.log(err.message);
+    }
+    
 
 }
 
-module.exports = {updateUser}
+module.exports = { updateUser }

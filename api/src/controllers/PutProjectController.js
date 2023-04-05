@@ -11,7 +11,7 @@ const putProjectController = async(req,res)=>{
         cost,
         currentAmount,
         status
-    } = req.query
+    } = req.body
 
     try {
         const projecttoUpdate = await updateProject(
