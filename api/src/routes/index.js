@@ -66,7 +66,7 @@ router.put("/imageUser", passport.authenticate("jwt", { session: false }), putIm
 router.post(
   "/donations",
   passport.authenticate("jwt", {
-    failureRedirect: "http://localhost:3000/login",
+    failureRedirect: "https://client-pf-seven.vercel.app/login",
     session: false,
   }),
   createDonationController
@@ -135,7 +135,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login",
+    failureRedirect: "https://client-pf-seven.vercel.app/login",
     session: false,
   }),
   GoogleCallBackController

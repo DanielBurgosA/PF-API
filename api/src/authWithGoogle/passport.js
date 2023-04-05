@@ -13,7 +13,7 @@ module.exports = (passport) => {
     passport.use(new GoogleStrategy({
         clientID: ID_CLIENT_GOOGLE,
         clientSecret: KEY_SECRET_GOOGLE,
-        callbackURL: "http://localhost:3001/auth/google/callback"
+        callbackURL: "https://pf-api-production.up.railway.app/auth/google/callback"
     },
         async function (accessToken, refreshToken, profile, cb) {
             console.log(profile)

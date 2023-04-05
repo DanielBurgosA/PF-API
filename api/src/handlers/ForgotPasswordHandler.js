@@ -17,7 +17,7 @@ const ForgotPasswordHandler = async (user_email) =>{
 
     const mensaje = "you are receving this beacuse you (or someone else) have requested the reset of the password for your account. \n\n" +
     "Please click on the following lonk, or paste this into your browser to e the porcess within  one hour of receiving it: \n\n" +
-    `http://localhost:3000/reset?token=${token.token}\n\n`+
+    `https://client-pf-seven.vercel.app/reset?token=${token.token}\n\n`+
     "if you did not request this, please ignore this email and your password will remain inchanged.\n";
 
     enviarCorreo(user_email, "reset password", mensaje, "forgotPassword");
