@@ -11,7 +11,7 @@ const logInController = async (req, res) => {
         if (state.success === true){
             res.status(200).json(state);
         }else{
-            res.status(200).json(state)
+            res.status(400).json(state)
         }
         
     } catch (error) {
