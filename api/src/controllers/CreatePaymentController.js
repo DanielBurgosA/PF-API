@@ -37,6 +37,8 @@ const createPayment = async (req, res) => {
             user_action: 'PAY_NOW', // Accion para que en paypal muestre el monto del pago
             return_url: `https://pf-api-production.up.railway.app/execute-payment?userId=${userId}&projectId=${projectId}&amount=${amount}`, // Url despues de realizar el pago
             cancel_url: `https://client-pf-seven.vercel.app/cancel-payment` // Url despues de realizar el pago
+            // return_url: `http://localhost:3001/execute-payment?userId=${userId}&projectId=${projectId}&amount=${amount}`, // Url despues de realizar el pago
+            // cancel_url: `http://localhost:3001/cancel-payment` // Url despues de realizar el pago
         }
     }
     //https://api-m.sandbox.paypal.com/v2/checkout/orders [POST]

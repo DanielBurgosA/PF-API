@@ -3,12 +3,9 @@ const { issueJWT } = require("../authWithJWT/utils")
 
 const GoogleCallBackController = (req, res) => {
     // Successful authentication, redirect home.
-    console.log("controller");
-    console.log(req.user.deleted);
     
     if(req.user.deleted){
         req.app.locals.deleted=req.user.deleted;
-        console.log("banned");
     }
     else{
         req.app.locals.deleted=req.user.deleted;
@@ -20,7 +17,7 @@ const GoogleCallBackController = (req, res) => {
             email: req.user.user_email,
             image: req.user.user_image
         };
-        console.log("paso");
+        
     }
     res.redirect('https://client-pf-seven.vercel.app/home');
     
